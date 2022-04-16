@@ -28,6 +28,7 @@ uint8_t tensor_arena[kTensorArenaSize];
 
 // The name of this function is important for Arduino compatibility.
 void setup() {
+  Serial.begin(9600);
   // Set up logging. Google style is to avoid globals or statics because of
   // lifetime uncertainty, but since this has a trivial destructor it's okay.
   // NOLINTNEXTLINE(runtime-global-variables)
@@ -96,7 +97,7 @@ void loop() {
   // Output the results. A custom HandleOutput function can be implemented
   // for each supported hardware target.
   HandleOutput(error_reporter, x_val, y_val);
-
+  Serial.printf("x_value: %f, y_value: %f\n",x_val,y_val);
   // Increment the inference_counter, and reset it if we have reached
   // the total number per cycle
   inference_count += 1;
