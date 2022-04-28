@@ -96,8 +96,10 @@ void loop() {
   //Serial.printf("El valor de y es %.2f \n",y_val);
   // Output the results. A custom HandleOutput function can be implemented
   // for each supported hardware target.
+
+  //Serial.printf("x_value: %f, y_value: %f\n", static_cast<double>(x_val), static_cast<double>(y_val));
   HandleOutput(error_reporter, x_val, y_val);
-  Serial.printf("x_value: %f, y_value: %f\n",x_val,y_val);
+
   // Increment the inference_counter, and reset it if we have reached
   // the total number per cycle
   inference_count += 1;
