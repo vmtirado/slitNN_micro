@@ -87,7 +87,8 @@ void setup() {
   }
 
 
-/// Falta el interpretador 2!!!!!!!!!!!!!!!!!!!!!!!!!1
+//-------------------------------------------Creating interpreters for the second split ---------------------------
+
   // This pulls in all the operation implementations we need.
   // NOLINTNEXTLINE(runtime-global-variables)
   static tflite::AllOpsResolver resolver_2;
@@ -139,12 +140,12 @@ void loop() {
   }
 
   // Output from the split of the network 
-  float out_val = output_1->data.f[0];
   // Output the results. A custom HandleOutput function can be implemented
   // for each supported hardware target.
 
   // Place our calculated x value in the model's input tensor
-  //Serial.printf("Pesos para x_val= %f----------------------------- \n",x_val);
+  Serial.printf("------------------------------------------------------------\n");
+  Serial.printf("x= %f \n",x_val);
 
  
  float output1_length = output_1->bytes / sizeof(float);
@@ -152,7 +153,7 @@ void loop() {
   pointer_updater(error_reporter,  output_1->data.f, input_2->data.f, output1_length);
   for (int i = 0; i <= output1_length; ++i) {
         float n = output_1->data.f[i];
-  //      Serial.printf("%f, ",n );
+        Serial.printf("%f, ",n );
         //Serial.print("Hello");
   }
   float output2_length = output_2->bytes / sizeof(float);
@@ -163,13 +164,14 @@ void loop() {
   TfLiteStatus invoke_status_2 = interpreter_2->Invoke();
   if (invoke_status_2 != kTfLiteOk) {
     TF_LITE_REPORT_ERROR(error_reporter, "Invoke failed on x_val: %f\n",
-                         static_cast<double>(out_val));
+                         static_cast<double>(x_val));
     return;
   }
 
  float y_val = output_2->data.f[0];
-
-  Serial.printf("x,%f,y,%f\n", x_val, y_val);
+ Serial.printf("\n");
+Serial.printf("y= %f \n",y_val);
+  //Serial.printf("x,%f,y,%f\n", x_val, y_val);
   //HandleOutput(error_reporter, x_val, y_val);
 
   // Increment the inference_counter, and reset it if we have reached
