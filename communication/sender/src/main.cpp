@@ -27,6 +27,6 @@ void loop()
     Serial2.write( flt.fBytes, sizeof( float ) );
     Serial.println(flt.fValue,4);
 
-    delay(1000);
+    delay(100);
     
 }
