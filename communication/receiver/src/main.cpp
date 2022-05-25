@@ -4,6 +4,7 @@
 
  float serial_data;
  unsigned char serial_buffer[4];
+ int flag=0;
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
@@ -11,10 +12,26 @@ void setup() {
 }
 void loop()
 {
- if (Serial2.readBytes(serial_buffer, sizeof(float)) == sizeof(float)){
-   Serial.print("Asigne");
-   memcpy(&serial_data, serial_buffer, sizeof(float));
-   Serial.println(serial_data,4);
- }
+  if (flag==0){
+    Serial2.write('*');
+    Serial.println("Solicite datos");
+    flag=1;
+  }
      
+}
+void serialEvent2(){
+  if(Serial2.available()){
+    if(flag==1){
+      if (Serial2.readBytesUntil('<',serial_buffer, sizeof(float)) == sizeof(float)){
+        memcpy(&serial_data, serial_buffer, sizeof(float));
+        Serial.print("Asigne");
+        Serial.println(serial_data,4);
+        flag=1;
+      }else{
+        Serial.println("done");
+        flag=2;
+      }
+    }
+
+  }
 }
