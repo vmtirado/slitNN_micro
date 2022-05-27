@@ -132,13 +132,13 @@ void loop() {
 void serialEvent2(){
   if(Serial2.available()){
     if(flag==1){
-      if (Serial2.readBytesUntil('<',serial_buffer, sizeof(float)) == sizeof(float)){
+      if (Serial2.readBytesUntil('<',serial_buffer, sizeof(float)) >0 ){
         memcpy(&serial_data, serial_buffer, sizeof(float));
         input2[pos]=serial_data;
         Serial.print("Asigne");
         Serial.println(serial_data,4);
-        flag=1;
         pos++;
+        
       }else{
         Serial.println("done");
         flag=2;

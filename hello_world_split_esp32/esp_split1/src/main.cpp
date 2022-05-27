@@ -142,7 +142,7 @@ if (flag==1){
         flt.fValue=n;
         Serial2.write( flt.fBytes, sizeof( float ) );
         Serial.println(flt.fValue,4);
-        delay(1);
+        delay(30);
   }
   Serial2.write('<'); 
    
