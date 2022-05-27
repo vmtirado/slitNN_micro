@@ -38,6 +38,7 @@ uint8_t tensor_arena[kTensorArenaSize];
 // The name of this function is important for Arduino compatibility.
 void setup() {
   Serial.begin(9600);
+  Serial2.begin(115200, SERIAL_8N1, RXp2, TXp2);
   // Set up logging. Google style is to avoid globals or statics because of
   // lifetime uncertainty, but since this has a trivial destructor it's okay.
   // NOLINTNEXTLINE(runtime-global-variables)
@@ -91,8 +92,8 @@ void loop() {
     // inference_count to the number of inferences per cycle to determine
     // our position within the range of possible x values the model was
     // trained on, and use this to calculate a value.
-  Serial.printf("Los valores en el vector para la inferencia %d son------------------- \n", inference_count);
-    for(int i=0; i<16;i++){
+  Serial.printf("Los valores en el vector para la inferencia son------------------- \n", inference_count);
+    for(int i=0; i<=16;i++){
       input->data.f[i]= input2[i];
       Serial.printf("%f, ",input->data.f[i]);
     }
@@ -124,6 +125,7 @@ void loop() {
     inference_count += 1;
     Serial.println(inference_count);
     if (inference_count >= 21) inference_count = 0;
+    flag=3;
   }
 }
 
