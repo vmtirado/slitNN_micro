@@ -44,7 +44,7 @@ if(flag==1){
   }
  // cont++;
   Serial2.write('<');  
-  flag=2;
+  flag=0;
 } 
     
 }
